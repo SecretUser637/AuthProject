@@ -1,1 +1,3 @@
 back/.env
+__pycache__/
+*.sqlite
