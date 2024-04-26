@@ -1,7 +1,7 @@
 # AuthProject
 
 Установка модулей
-`pip install -r requirements.txt`
+`pip install -r requirements.txt --upgrade`
 
 посев
 `py seed.py`
