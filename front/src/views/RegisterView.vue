@@ -32,7 +32,20 @@
  export default {
     methods:{
         send(){
-            console.log(1)
+            this.axios.post("http://127.0.0.1:8000/reg",this.user).then(data=>{
+                console.log(data)
+                this.$toast.open({
+                message: 'Регистрация успешна',
+                type: 'success',
+                });
+            }).catch(data=>{
+                console.log(data)
+                this.$toast.open({
+                message: 'Ошибка валидации',
+                type: 'error',
+                });
+            })
+            
         }
     },
     data: () => ({

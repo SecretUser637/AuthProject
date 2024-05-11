@@ -6,12 +6,23 @@ import pyd
 from datetime import date
 from myemail import send_email_message
 import random, string
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 def randomword(length):
    letters = string.ascii_lowercase+string.digits
    return ''.join(random.choice(letters) for i in range(length))
 
 app = FastAPI()
+
+origins=["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.post('/reg',response_model=pyd.UserBase)
 async def reg_user(user_input:pyd.UserCreate,db: Session = Depends(get_db)):
@@ -48,4 +59,4 @@ async def verify_email(code:str,db: Session = Depends(get_db)):
     user_db.email_verify=True
     user_db.email_verify_code=None
     db.commit()
-    return {'status':200}
+    return RedirectResponse('http://localhost:5173/')

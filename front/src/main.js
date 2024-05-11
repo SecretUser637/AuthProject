@@ -22,6 +22,11 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 app.use(VueAxios, axios)
 
+import ToastPlugin from 'vue-toast-notification';
+// Import one of the available themes
+import 'vue-toast-notification/dist/theme-default.css';
+
+app.use(ToastPlugin);
 app.use(router)
 app.use(vuetify)
 
