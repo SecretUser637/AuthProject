@@ -35,7 +35,17 @@ async def reg_user(user_input:pyd.UserCreate,db: Session = Depends(get_db)):
     user_db.email_verify_code=email_verify_token
     db.commit()
 
-    send_email_message(user_db.email,'Подтверждение почты',
-                       f'<a href="http://127.0.0.1:8000/verify/?code={email_verify_token}">Подтвердить почту</a>')
+    send_email_message(user_db.email,'Проверочное письмо 1',
+                       f'<h1>Проверка</h1><a href="http://127.0.0.1:8000/verify/?code={email_verify_token}">Подтвердить почту</a>')
 
     return user_db
+
+@app.get('/verify')
+async def verify_email(code:str,db: Session = Depends(get_db)):
+    user_db=db.query(models.User).filter(models.User.email_verify_code==code).first()
+    if not user_db:
+        raise HTTPException(400, 'Неверный код')
+    user_db.email_verify=True
+    user_db.email_verify_code=None
+    db.commit()
+    return {'status':200}
