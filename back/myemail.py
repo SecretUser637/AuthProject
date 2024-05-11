@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from config import settings
 
 def send_email_message(to,subject,text):
-    message=MIMEText(text,"plain")
+    message=MIMEText(text,"html")
     message['Subject']=subject
     message['From']=settings.EMAIL_LOG
     message['To']=to
