@@ -80,3 +80,8 @@ async def user_login(cred: pyd.Credentials, db: Session = Depends(get_db)):
         raise HTTPException(403, 'не верный логин или пароль')
 
     return auth.encode_token(user_db.id)
+
+
+@app.get('/secr')
+async def sectr(user=Depends(auth.auth_wrapper)):
+    return randomword(30)

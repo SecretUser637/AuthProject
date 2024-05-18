@@ -15,5 +15,5 @@ class UserBase(BaseModel):
 
 
 class JWTToken(BaseModel):
-    exp: datetime = Field(..., example='2001-01-01 00:00:00')
+    exp: int = Field(...)
     token: str = Field(..., example='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTYwMDg5NzUsImlhdCI6MTcxNjAwNzE3NSwidXNlcl9pZCI6MX0.o-36LfTtQ1ksQR4o3T_FApzXD1ss-56LsqytsLvpKd4')

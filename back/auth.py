@@ -2,7 +2,7 @@ import jwt
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from config import settings
 
 
@@ -27,12 +27,12 @@ class AuthHandler:
     # создание JWT токена, с временем жизни 30 минут
     def encode_token(self, user_id):
         payload = {
-            'exp': datetime.utcnow() + timedelta(minutes=30),
-            'iat': datetime.utcnow(),
+            'exp': datetime.now(timezone.utc).replace(tzinfo=timezone.utc) + timedelta(seconds=1),
+            'iat': datetime.now(timezone.utc).replace(tzinfo=timezone.utc),
             'user_id': user_id
         }
         return {
-            'exp': payload['exp'],
+            'exp': int(payload['exp'].timestamp()),
             'token': jwt.encode(
                 payload,
                 self.secret,

@@ -12,14 +12,17 @@ import App from './App.vue'
 import router from './router'
 
 const vuetify = createVuetify({
-    components,
-    directives,
-  })
+  components,
+  directives,
+})
 const app = createApp(App)
 
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('JWT_token') ?? ''
+
 app.use(VueAxios, axios)
 
 import ToastPlugin from 'vue-toast-notification';
