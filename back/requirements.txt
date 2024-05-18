@@ -1,2 +1,5 @@
 fastapi[all]
 sqlalchemy
+PyJWT
+passlib
+bcrypt
